@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Snippets (All)</h1>
+{% for snippet in snippets %}
+  <div class="card"> 
+  <a href="{% url 'detail' snippet.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ snippet.language }}</span>
+      <p>Language: {{ snippet.language }}</p>
+      <p>Category: {{ snippet.category }}</p>
+      <p>Description: {{ snippet.description }}</p>
+      <p>Year Discovered: {{ snippet.year_discovered }}</p>
+    </div>
+  </a>
+  </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>return f"{snippet_detail}"</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ snippets.language }}</span>
+    <p>Language: {{ snippets.language }}</p>
+    <p>Category: {{ snippets.category }}</p>
+    <p>Description: {{ snippets.description }}</p>
+    <p>Year Discovered: {{ snippets.year_discovered }}</p>
+  </div>
+</div>
+
+
+{% endblock %}
