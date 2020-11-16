@@ -9,6 +9,7 @@
   <title>Snippets (r, us)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
   <header class="navbar-fixed">
@@ -16,10 +17,18 @@
       <div class="nav-wrapper">
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Snippets (r, us)</a></li>
-        </ul>
         <ul class="right">
-            <li><a href="/snippets">Snippets</a></li>
-            <li><a href="/login">Login</a></li>
+        <!-- changes below -->
+          <li><a href="{% url 'about' %}">About</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'create' %}">Add a Snippet</a></li>
+          <li><a href="{% url 'snippets' %}">View All Snippets</a></li>
+          {% comment %} <li><a href="{% url 'toy_Create' %}">Add a Cat</a></li>
+          <li><a href="{% url 'index' %}">View All My Cats</a></li> {% endcomment %}
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}">Log In</a></li>
+        {% endif %}
         </ul>
       </div>
     </nav>

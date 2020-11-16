@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # In this case '' represents the root route
     path('', include('snippets.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

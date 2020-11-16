@@ -7,10 +7,17 @@
   <a href="{% url 'detail' snippet.id %}">
     <div class="card-content">
       <span class="card-title">{{ snippet.language }}</span>
-      <p>Language: {{ snippet.language }}</p>
-      <p>Category: {{ snippet.category }}</p>
-      <p>Description: {{ snippet.description }}</p>
-      <p>Year Discovered: {{ snippet.year_discovered }}</p>
+      <p>Language: <span class="text">{{ snippet.language }}</span></p>
+      </br>
+      <p>Category: <span class="text">{{ snippet.category }}</span></p>
+      </br>
+      <p>Description: <span class="text">{{ snippet.description }}</span></p>
+      </br>
+      <p>Year Discovered: <span class="text">{{ snippet.year_discovered }}</span></p>
+    </div>
+      <div class="card-action">
+        <a href="{% url 'snippet_update' snippet.id %}">Edit</a>
+        <a href="{% url 'snippet_delete' snippet.id %}">Delete</a>
     </div>
   </a>
   </div>

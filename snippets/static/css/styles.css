@@ -3,6 +3,11 @@ body {
     min-height: 100vh;
     flex-direction: column;
 }
+
+.text {
+    text-emphasis: none;
+    color: black;
+}
   
 main {
     flex: 1 0 auto;
