@@ -25,7 +25,13 @@
         {{ usage_form.as_p }}
         <input type="submit" class="btn" value="Add Usage Log">
       </form>
-      <thead>
+      <br>
+      {% if snippet.last_used %}
+        <div class="card-panel teal-text center-align">{{snippet.language}} has been fed all meals for today</div>
+      {% else %}
+        <div class="card-panel red-text center-align">{{snippet.language}} might be hungry</div>
+      {% endif %}
+        <thead>
         <tr><th>Date</th><th>Type of Project</th></tr>
       </thead>
       <tbody>
@@ -35,6 +41,33 @@
             <td>{{usage.type}}</td>
           </tr>
         {% endfor %}
+        <!-- This is all new markup to be added just above the <script> tag -->
+        <hr>
+        <div class="row">
+          <div class="col s6">
+            <h3>{{ snippet.language }}'s Toys</h3>
+            {% if snippet.method.count %}
+              {% for methods in snippet.method.all %}
+                <div class="card">
+                  <div class="card-content">
+                    <span class="card-title">
+                      {{ method }}">{{ toy.color }}</span> {{ toy.name }}
+                    </span>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <h5>No methods :(</h5>
+            {% endif %}
+          </div>
+          <!-- Available toys will come after this line -->
+        </div>
+        <div class="card-action">
+          <form action="{% url 'assoc_project' snippet.id uses.id %}" method="post">
+              {% csrf_token %}
+            <button type="submit" class="btn">Add</button>
+          </form>
+        </div>
       <script>
           var dateEl = document.getElementById('id_date');
           M.Datepicker.init(dateEl, {
@@ -44,7 +77,7 @@
             autoClose: true
           });
           var selectEl = document.getElementById('id_type');
-          M.FormSelect.init(selectEl);
+          M.FormSelect.init(selectEl);  
       </script>
       </tbody>
     </table>

@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 
-
 # Add the following import
 from django.http import HttpResponse
 
-from .models import Snippet
+from .models import Snippet, Use, UsageCounter
 from .forms import UsageForm
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -79,11 +78,13 @@ def snippet_index(request):
 @login_required
 def snippet_detail(request, snippet_id):
     snippet = Snippet.objects.get(id=snippet_id)
+    project_not_used = Use.objects.exclude(id__in = snippet.uses.all().values_list('id'))
     usage_form = UsageForm()
     return render(request, 'snippets/detail.html', {'snippet': snippet,
-    'usage_form': usage_form    
+    'usage_form': usage_form, 'uses': project_not_used
 })
 
+@login_required
 def usage_form(request, snippet_id):
   # create a ModelForm instance using the data in request.POST
   form = UsageForm(request.POST)
@@ -91,9 +92,13 @@ def usage_form(request, snippet_id):
   if form.is_valid():
     # don't save the form to the db until it
     # has the cat_id assigned
-    print('form is valid')
     new_usage = form.save(commit=False)
     new_usage.snippet_id = snippet_id
     new_usage.save()
-    print('form is saved')
+  return redirect('detail', snippet_id=snippet_id)
+
+@login_required
+def assoc_project(request, snippet_id, use_id):
+  # Note that you can pass a toy's id instead of the whole object
+  Snippet.objects.get(id=snippet_id).uses.add(use_id)
   return redirect('detail', snippet_id=snippet_id)

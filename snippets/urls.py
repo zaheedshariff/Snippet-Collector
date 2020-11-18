@@ -15,4 +15,5 @@ urlpatterns = [
   path('snippets/<int:pk>/delete/', views.SnippetDelete.as_view(), name='snippet_delete'),
   path('accounts/signup/', views.signup, name='signup'),
   path('snippets/<int:snippet_id>/usage_form/', views.usage_form, name='usage_counter'),
+  path('snippets/<int:snippet_id>/assoc_project/<int:uses_id>/', views.assoc_project, name='assoc_project')
 ]
